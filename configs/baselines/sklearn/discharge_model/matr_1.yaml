@@ -1,0 +1,31 @@
+model:
+    name: 'LinearRegressionRULPredictor'
+train_test_split:
+    name: 'MATRPrimaryTestTrainTestSplitter'
+    cell_data_path: 'processed_data'
+    
+feature:
+    name: 'DischargeModelFeatureExtractor'
+    interp_dims: 1000
+    critical_cycles:
+        - 2
+        - 9
+        - 99
+    use_precalculated_qdlin: True
+label:
+    name: 'RULLabelAnnotator'
+feature_transformation:
+    name: 'ZScoreDataTransformation'
+label_transformation:
+    name: 'SequentialDataTransformation'
+    transformations:
+        - name: 'LogScaleDataTransformation'
+        - name: 'ZScoreDataTransformation'
+output:
+    save_predictions: true
+    save_metrics: true
+    prediction_file: './workspace/test/predictions.csv'
+    metrics_file: './workspace/test/metrics.json'
+
+workspace:
+    path: './workspace/test'

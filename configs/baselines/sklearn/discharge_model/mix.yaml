@@ -1,0 +1,35 @@
+model:
+    name: 'LinearRegressionRULPredictor'
+train_test_split:
+    name: 'MIX100TrainTestSplitter'  # Changed to MIX100TrainTestSplitter
+    cell_data_path:  # Updated paths to multiple datasets
+        - 'processed_data/CALCE'
+        - 'processed_data/RWTH'
+        - 'processed_data/UL_PUR'
+        - 'processed_data/HNEI'
+        - 'processed_data/MATR'
+        - 'processed_data/HUST'
+feature:
+    name: 'DischargeModelFeatureExtractor'
+    interp_dims: 1000
+    critical_cycles:
+        - 2
+        - 9
+        - 99
+    use_precalculated_qdlin: True
+label:
+    name: 'RULLabelAnnotator' 
+feature_transformation:
+    name: 'ZScoreDataTransformation'
+label_transformation:
+    name: 'SequentialDataTransformation'
+    transformations:
+        - name: 'LogScaleDataTransformation'
+        - name: 'ZScoreDataTransformation'
+output:
+    save_predictions: true
+    save_metrics: true
+    prediction_file: './workspace/test/predictions.csv'
+    metrics_file: './workspace/test/metrics.json'
+workspace:
+    path: './workspace/test'
