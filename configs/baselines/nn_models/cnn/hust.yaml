@@ -9,7 +9,7 @@ model:
     evaluate_freq: 100
 train_test_split:
     name: 'HUSTTrainTestSplitter'
-    cell_data_path: 'data/processed/HUST'
+    cell_data_path: 'HUST_preprocess'
 feature:
     name: 'VoltageCapacityMatrixFeatureExtractor'
     diff_base: 9
